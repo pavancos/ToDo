@@ -37,7 +37,7 @@ void print(const todo& task) {
             priorityStr = "Low";
             break;
         default:
-            priorityStr = "Unknown";
+            priorityStr = "NA";
     }
     cout << "\n\tID: " << task.id;
     cout << "\n\tTask: " << task.task;
@@ -114,7 +114,7 @@ int main() {
         cout << "\n\t6. Exit";
         int choice;
         cout << "\n\n\tEnter choice: ";
-        cin >> choice;  
+        cin >> choice; 
         switch (choice) {
             case 1:
                 addtodo();
