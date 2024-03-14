@@ -7,7 +7,6 @@ struct todo {
     int id;
     string task;
     int priority;
-
     bool operator<(const todo& other) const {
         return priority < other.priority;
     }
@@ -66,7 +65,6 @@ int searchData() {
     }
     return -1;
 }
-
 void deleteData() {
     int id = searchData();
     if (id != -1) {
@@ -83,7 +81,6 @@ void deleteData() {
         cout << "\n\tTask not found";
     }
 }
-
 void updateData() {
     int id = searchData();
     if (id != -1) {
@@ -107,7 +104,6 @@ void updateData() {
         cout << "\n\tTask not found";
     }
 }
-
 int main() {
     while (true) {
         cout << "\n\n\t1. Add Task";
@@ -118,8 +114,7 @@ int main() {
         cout << "\n\t6. Exit";
         int choice;
         cout << "\n\n\tEnter choice: ";
-        cin >> choice;
-        
+        cin >> choice;  
         switch (choice) {
             case 1:
                 addtodo();
