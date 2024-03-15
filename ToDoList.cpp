@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include <queue>
+#include<ctime>
+#include<chrono>
+using namespace std::chrono;
 using namespace std;
 int ID = 0;
 struct todo {
@@ -8,7 +11,7 @@ struct todo {
     string task;
     int priority;
     bool operator<(const todo& other) const {
-        return priority < other.priority;
+        return priority > other.priority;
     }
 };
 priority_queue<todo> tasks;
