@@ -118,7 +118,6 @@ int searchData()
     {
         cout << "\nNo tasks with remaining days less than " << NoOfDays << " found.\n";
     }
-    return -1;
 }
 
 void deleteData()
