@@ -12,7 +12,7 @@ int ID = 0;
 
 void setTime(struct tm &I)
 {
-    cout << "Enter deadline date (DDMMYYYY): \n";
+    //cout << "Enter deadline date (DDMMYYYY): \n";
     string d;
     cin >> d;
     char arr[d.length() + 1];
@@ -47,6 +47,7 @@ void addtodo()
     cin.ignore();
     getline(cin, task);
     struct tm Ded;
+    cout << "Enter deadline date (DDMMYYYY): \n";
     setTime(Ded);
 
     time_t now;
@@ -90,35 +91,37 @@ void readData()
     }
 }
 
-int searchData()
-{
-    if (tasks.empty())
-    {
+void searchData() {
+    if (tasks.empty()) {
         cout << "\nNo tasks available.\n";
-        return -1;
+        return;
     }
 
-    int NoOfDays;
-    cout << "\nEnter the number of days: ";
-    cin >> NoOfDays;
+    struct tm input_date;
+    cout << "\nEnter the date to search (DDMMYYYY): \n";
+    setTime(input_date);
+
+    // Make copy of input_date bcz mktime expects non-const tm* pointer
+    struct tm input_date_copy = input_date;
+
+    time_t input_time = mktime(&input_date_copy);
 
     priority_queue<todo> temp = tasks;
     bool found = false;
-    while (!temp.empty())
-    {
-        if (temp.top().remDays < NoOfDays)
-        {
-            print(temp.top());
-            found = true;
-        }
-        temp.pop();
+    while (!temp.empty()) {
+    struct tm task_deadline = temp.top().dedLine;
+    time_t task_time = mktime(&task_deadline);
+    if (task_time != -1 && task_time <= input_time) {
+        print(temp.top());
+        found = true;
     }
+    temp.pop();
+}
 
-    if (!found)
-    {
-        cout << "\nNo tasks with remaining days less than " << NoOfDays << " found.\n";
+
+    if (!found) {
+        cout << "\nNo tasks found with deadlines on or before the specified date.\n";
     }
-    return -1;
 }
 
 void deleteData()
@@ -199,7 +202,7 @@ int main()
     {
         cout << "\n\n\t1. Add Task";
         cout << "\n\t2. Display Tasks";
-        cout << "\n\t3. Search Task by Remaining Days";
+        cout << "\n\t3. Search Tasks Within Given Date";
         cout << "\n\t4. Delete Task";
         cout << "\n\t5. Update Task";
         cout << "\n\t6. Exit";
