@@ -3,67 +3,51 @@
 #include <queue>
 #include<ctime>
 #include<chrono>
-#include <cstring>
-
 using namespace std::chrono;
 using namespace std;
 int ID = 0;
-
 struct todo {
     int id;
     string task;
-    int priority;
+    int remDays;
+    struct tm ip;
+    
     bool operator<(const todo& other) const {
-        return priority > other.priority;
+        return remDays > other.remDays;
     }
 };
-
-void setTime(struct tm &I){
-    cout<<"Enter deadline date(DDMMYYYY): \n";
-    string d; cin>>d;
-    char arr[d.length()+1];
-    strcpy(arr, d.c_str());
-    I.tm_mday= int(arr[0]-'0')*10+int(arr[1]-'0');
-    I.tm_mon= int(arr[2]-'0')*10+int(arr[3]-'0');
-    I.tm_year= int(arr[4]-'0')*1000+int(arr[5]-'0')*100+int(arr[6]-'0')*10+int(arr[7]-'0');
-    cout<<"Day is: "<<I.tm_mday<<" "<<I.tm_mon<<" "<<I.tm_year<<endl;
-}
-
 priority_queue<todo> tasks;
-
 void addtodo() {
     cout << "\n\tEnter new task: ";
     string task;
     cin.ignore();
     getline(cin, task);
-    int priority;
-    cout << "\tEnter priority (1-High, 2-Medium, 3-Low): ";
-    cin >> priority;
+    int remDays;
+    cout << "\tEnter remDays (1-High, 2-Medium, 3-Low): ";
+    cin >> remDays;
     ID++;
-    tasks.push({ID, task, priority});
+    tasks.push({ID, task, remDays});
     cout << "\n\tTask has been added successfully";
 }
-
 void print(const todo& task) {
-    string priorityStr;
-    switch (task.priority) {
+    string remDaysStr;
+    switch (task.remDays) {
         case 1:
-            priorityStr = "High";
+            remDaysStr = "High";
             break;
         case 2:
-            priorityStr = "Medium";
+            remDaysStr = "Medium";
             break;
         case 3:
-            priorityStr = "Low";
+            remDaysStr = "Low";
             break;
         default:
-            priorityStr = "NA";
+            remDaysStr = "NA";
     }
     cout << "\n\tID: " << task.id;
     cout << "\n\tTask: " << task.task;
-    cout << "\n\tPriority: " << priorityStr;
+    cout << "\n\tPriority: " << remDaysStr;
 }
-
 void readData() {
     cout << "\n\t------------------Your current Tasks in the list--------------------";
     priority_queue<todo> temp = tasks;
@@ -72,7 +56,6 @@ void readData() {
         temp.pop();
     }
 }
-
 int searchData() {
     int id;
     cout << "\n\tEnter task id: ";
@@ -87,7 +70,6 @@ int searchData() {
     }
     return -1;
 }
-
 void deleteData() {
     int id = searchData();
     if (id != -1) {
@@ -104,7 +86,6 @@ void deleteData() {
         cout << "\n\tTask not found";
     }
 }
-
 void updateData() {
     int id = searchData();
     if (id != -1) {
@@ -128,7 +109,6 @@ void updateData() {
         cout << "\n\tTask not found";
     }
 }
-
 int main() {
     while (true) {
         cout << "\n\n\t1. Add Task";
