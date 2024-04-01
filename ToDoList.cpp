@@ -183,7 +183,7 @@ int main()
         cout << "\n\n\t1. Add Task";
         cout << "\n\t2. Display Tasks";
         cout << "\n\t3. Search Task by Remaining Days";
-        cout << "\n\t4. Delete Task";
+        cout << "\n\t4. Delete Task by Name";
         cout << "\n\t5. Exit";
         int choice;
         cout << "\n\n\tEnter choice: ";
