@@ -24,6 +24,13 @@ bool isValidDate(int day, int month, int year)
     else
         return (day <= 31);
 }
+string toLower(const string& str) {
+    string result = str;
+    for (char& c : result) {
+        c = tolower(c);
+    }
+    return result;
+}
 void setTime(struct tm &I)
 {
     time_t now = time(0);
@@ -70,6 +77,7 @@ void addtodo()
     string task;
     cin.ignore();
     getline(cin, task);
+    task = toLower(task);
     struct tm Ded;
     setTime(Ded);
     if (!isValidDate(Ded.tm_mday, Ded.tm_mon + 1, Ded.tm_year + 1900))
@@ -115,7 +123,7 @@ void readData()
         temp.pop();
     }
 }
-int searchData()
+int searchDataByDays()
 {
     if (tasks.empty())
     {
@@ -143,10 +151,39 @@ int searchData()
     }
     return -1;
 }
-void deleteData()
-{
-    if (tasks.empty())
-    {
+
+void searchDataByDate() {
+    if (tasks.empty()) {
+        cout << "\n\tNo tasks available.\n";
+        return;
+    }
+
+    struct tm input_date;
+    setTime(input_date);
+
+    struct tm input_date_copy = input_date;
+    time_t input_time = mktime(&input_date_copy);
+
+    priority_queue<todo> temp = tasks;
+
+    bool found = false;
+    while (!temp.empty()) {
+       struct tm task_deadline = temp.top().dedLine;
+       time_t task_time = mktime(&task_deadline);
+    if (task_time != -1 && task_time <= input_time) {
+        print(temp.top());
+        found = true;
+       }
+    temp.pop();
+    }
+
+    if (!found) {
+        cout << "\n\tNo tasks found with deadlines on or before the specified date.\n";
+    }
+}
+
+void deleteData(){
+    if (tasks.empty()){
         cout << "\n\tNo tasks available.\n";
         return;
     }
@@ -155,14 +192,17 @@ void deleteData()
     cout << "\n\tEnter task name to delete: ";
     cin.ignore();
     getline(cin, task);
+
+     // Convert task to lowercase
+    task = toLower(task);
+
     priority_queue<todo> temp;
+
     bool found = false;
-    while (!tasks.empty())
-    {
-        if (tasks.top().task == task)
-        {
+    while (!tasks.empty()){
+        if (tasks.top().task == task){
             found = true;
-            cout << "\n\tDeleting Task \"" << task << "\":\n";
+            cout << "\n\tDeleting Task \""<< task << "\"\n";
             tasks.pop();
         }
         else{
@@ -171,20 +211,68 @@ void deleteData()
         }
     }
     tasks = temp;
-    if (!found)
-    {
+    if (!found){
         cout << "\n\tTask with name \"" << task << "\" not found.\n";
     }
 }
-int main()
-{
-    while (true)
-    {
+void update() {
+    if (tasks.empty()) {
+        cout << "\n\tNo tasks available.\n";
+        return;
+    }
+
+    string taskName;
+    cout << "\n\tEnter the name of the task to update deadline: ";
+    cin.ignore();
+    getline(cin, taskName);
+
+    
+    taskName = toLower(taskName);
+
+    priority_queue<todo> temp;
+
+    bool found = false;
+    while (!tasks.empty()) {
+        todo currentTask = tasks.top();
+        tasks.pop();
+        if (currentTask.task == taskName) {
+            found = true;
+            struct tm newDeadline;
+            setTime(newDeadline);
+            currentTask.dedLine = newDeadline;
+
+            time_t now;
+            struct tm tp;
+            now = time(NULL);
+            tp = *localtime(&now);
+            tp.tm_sec = 0;
+            tp.tm_min = 0;
+            tp.tm_hour = 0;
+            time_t now_seconds = mktime(&tp);
+            time_t ip_seconds = mktime(&newDeadline);
+            double seconds_difference = difftime(ip_seconds, now_seconds);
+            int Rem = (seconds_difference) / (60 * 60 * 24);
+            currentTask.remDays = Rem;
+            cout << "\n\tDeadline updated successfully for Task \"" << taskName << "\"" << endl;
+        }
+        temp.push(currentTask);
+    }
+    tasks = temp;
+
+    if (!found) {
+        cout << "\n\tTask with name \"" << taskName << "\" not found.\n";
+    }
+}
+int main(){
+    while (true){
         cout << "\n\n\t1. Add Task";
         cout << "\n\t2. Display Tasks";
-        cout << "\n\t3. Search Task by Remaining Days";
-        cout << "\n\t4. Delete Task by Name";
-        cout << "\n\t5. Exit";
+        cout << "\n\t3. Search Task by Date";
+        cout << "\n\t4. Search Task by Days";
+        cout << "\n\t5. Delete Task by Name";
+        cout << "\n\t6. Update Task";
+        cout << "\n\t7. Exit";
+
         int choice;
         cout << "\n\n\tEnter choice: ";
         cin >> choice;
@@ -196,13 +284,19 @@ int main()
             readData();
             break;
         case 3:
-            searchData();
+            searchDataByDate();
             break;
         case 4:
-            deleteData();
+            searchDataByDays();
             break;
         case 5:
-            cout << "\n\tExiting program...\n";
+            deleteData();
+            break;
+        case 6:
+            update();
+            break;
+        case 7:
+            cout << "\n\tExiting program...";
             return 0;
         default:
             cout << "\n\tInvalid choice. Please enter a valid option.";
