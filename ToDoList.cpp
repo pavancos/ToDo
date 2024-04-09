@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -6,6 +7,7 @@
 #include <chrono>
 #include <cstring>
 #include <cmath>
+#include<algorithm>
 
 using namespace std::chrono;
 using namespace std;
@@ -153,18 +155,43 @@ void readFromFile() {
 }
 
 
+bool isDuplicateTask(const string& taskName, const struct tm& deadline) {
+    priority_queue<todo> temp = tasks;
+    while (!temp.empty()) {
+        // Compare task names ignoring case and spaces
+        string existingTaskName = temp.top().task;
+        if (toLower(existingTaskName) == toLower(taskName) &&
+            temp.top().dedLine.tm_mday == deadline.tm_mday &&
+            temp.top().dedLine.tm_mon == deadline.tm_mon &&
+            temp.top().dedLine.tm_year == deadline.tm_year) {
+            return true; // Duplicate task found
+        }
+        temp.pop();
+    }
+    return false; // No duplicate task found
+}
+
 void addtodo() {
     cout << "\n\tEnter new task: ";
     string task;
     cin.ignore();
     getline(cin, task);
-    task = toLower(task);
+    task = toLower(task); // Convert task name to lower case
+    // Remove spaces from task name
+    task.erase(remove_if(task.begin(), task.end(), ::isspace), task.end());
+
     struct tm Ded;
     setTime(Ded);
     if (!isValidDate(Ded.tm_mday, Ded.tm_mon + 1, Ded.tm_year + 1900)) {
         cout << "\n\tInvalid date! Task not added.\n";
         return;
     }
+
+    if (isDuplicateTask(task, Ded)) {
+        cout << "\n\tThis task already exists with the same name and deadline.\n";
+        return;
+    }
+
     time_t now;
     struct tm tp;
     now = time(NULL);
