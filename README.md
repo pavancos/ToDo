@@ -1,4 +1,12 @@
 # Task Manager
+## Setup & Usage
+1. Feel free to clone this repository into your local machine.
+2. You can run the Application(Console-Based) by
+    > ./ToDoList.exe
+3. If you would like to customise the organisation 
+
+
+
 ## Abstract
 This task manager serves as a project for an Advanced Data Structures course. It functions as a tool to aid users in efficiently organizing their tasks. Users can perform various actions such as adding, viewing, updating, and deleting tasks seamlessly. The program allows users to input task details and deadlines, which are then saved for future reference. Additionally, it calculates and presents the remaining days until each task's deadline, facilitating effective task prioritization. The manager is designed to streamline task management for users across different domains, be it academic, professional, or personal. By demonstrating the practical implementation of advanced data structures, it provides a hands-on learning experience while offering a practical solution for task organization. With its user-friendly interface and straightforward functionalities, the task manager aims to simplify the complexities associated with task management, making it accessible to users of all skill levels. Whether used for educational purposes or day-to-day task tracking, this project showcases the importance and utility of employing advanced data structures in solving real-world challenges.
 ## Introduction
