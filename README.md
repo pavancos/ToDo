@@ -1,18 +1,16 @@
 # Task Manager
-## Setup & Usage
+### Setup & Usage
 1. Feel free to clone this repository into your local machine.
-2. You can run the Application(Console-Based) by
+2. You can run the Application(Console-Based) by:
     > ./ToDoList.exe
-3. If you would like to customise the organisation 
+3. If you would like to customise the organisation and priotization of the tasks, you are welcome to change the code.
+4. After finishing customisation, you can run the application by:
+    > g++ -g ./ToDoList.cpp -o ./ToDoList.exe
 
-
-
-## Abstract
-This task manager serves as a project for an Advanced Data Structures course. It functions as a tool to aid users in efficiently organizing their tasks. Users can perform various actions such as adding, viewing, updating, and deleting tasks seamlessly. The program allows users to input task details and deadlines, which are then saved for future reference. Additionally, it calculates and presents the remaining days until each task's deadline, facilitating effective task prioritization. The manager is designed to streamline task management for users across different domains, be it academic, professional, or personal. By demonstrating the practical implementation of advanced data structures, it provides a hands-on learning experience while offering a practical solution for task organization. With its user-friendly interface and straightforward functionalities, the task manager aims to simplify the complexities associated with task management, making it accessible to users of all skill levels. Whether used for educational purposes or day-to-day task tracking, this project showcases the importance and utility of employing advanced data structures in solving real-world challenges.
 ## Introduction
 Task management systems play a good role in aiding individuals and organizations in efficiently organizing and executing tasks. These systems act as digital assistants, allowing users to input, track, and manage tasks seamlessly. By providing features such as deadline tracking, priority setting, and task categorization, task management systems enhance productivity and streamline workflow processes. In today's fast-paced world, where time is of the essence, having an effective task management system is essential for staying organized and meeting deadlines. The project aims to bridge the gap between traditional pen-and-paper methods and modern digital solutions by providing a comprehensive task management system implemented using Advanced Data Structures. By leveraging the power of programming, the system offers advanced features and functionalities designed to enhance productivity and time management skills.
 
-Priority queues are a type of container adaptors, specifically designed such that its first element is always the greatest of the elements it contains, according to some strict weak ordering criterion.[1] Priority queues, built upon the heap data structure, are fundamental to task management systems. In a priority queue, each task is assigned a priority, and the tasks are processed based on their priority level. The heap structure ensures that tasks with the highest priority are executed first, facilitating efficient task management and resource allocation. By leveraging the heap structure, priority queues offer a reliable and efficient means of prioritizing tasks, enabling users to focus on critical tasks and meet deadlines effectively.
+Priority queues are a type of container adaptors, specifically designed such that its first element is always the greatest of the elements it contains, according to some strict weak ordering criterion.Priority queues, built upon the heap data structure, are fundamental to task management systems. In a priority queue, each task is assigned a priority, and the tasks are processed based on their priority level. The heap structure ensures that tasks with the highest priority are executed first, facilitating efficient task management and resource allocation. By leveraging the heap structure, priority queues offer a reliable and efficient means of prioritizing tasks, enabling users to focus on critical tasks and meet deadlines effectively.
 
 Our Task Manger offers features such as task organisation, prioritization according to deadline. Task managers empower users to stay focused, meet deadlines, and achieve their goals with greater efficiency and ease.
 ## Objectives and Scope of the Project
