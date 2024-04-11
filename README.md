@@ -1,17 +1,12 @@
 # Task Manager
-
 ## Setup & Usage
-
 1. Feel free to clone this repository into your local machine.
 2. You can run the Application (Console-Based) by:
     > ./ToDoList.exe
 3. If you would like to customize the organization and prioritization of the tasks, you are welcome to change the code.
 4. After finishing customization, you can run the application by:
     > g++ -g ./ToDoList.cpp -o ./ToDoList.exe
-
-
 ## Introduction
-
 - Task management systems aid in efficiently organizing and executing tasks.
 - They act as digital assistants, enhancing productivity and workflow processes.
 - Effective task management is essential for meeting deadlines in today's fast-paced world.
