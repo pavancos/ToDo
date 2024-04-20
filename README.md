@@ -9,7 +9,6 @@
 4. After finishing customization, you can run the application by:
     ``` 
     g++ -g ./ToDoList.cpp -o ./ToDoList.exe
-
     ```
 ## Introduction
 - Task management systems aid in efficiently organizing and executing tasks.
